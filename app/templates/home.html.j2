@@ -1,0 +1,23 @@
+{% extends "base.html.j2" %}
+
+{% block content %}
+<h1>Home page</h1>
+{% if user %}
+<i>Signed in as <b>
+{% if user['user_nickname'] %}
+    {{user['user_nickname']}}
+{% else %}
+    {{user['user_email']}}
+{% endif %}
+</b></i>
+{% else %}
+<i>Not signed in</i>
+{% endif %}
+<ul>
+    <li><a href="{{ url_for('register') }}">register</a></li>
+    <li><a href="{{ url_for('login') }}">login</a></li>
+    <li><a href="{{ url_for('logout') }}">logout</a></li>
+    <li><a href="{{ url_for('admin') }}">admin</a></li>
+    <li><a href="{{ url_for('profile') }}">profile</a></li>
+</ul>
+{% endblock content %}
