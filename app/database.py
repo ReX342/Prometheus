@@ -141,7 +141,7 @@ with sqlite3.connect(DATABASE) as conn:
 def get_content():
     with sqlite3.connect('discordbot/trashfire.db') as conn:
         cursor = conn.execute("SELECT "
-            "message_content "
+            "message_content, Timestamp "
             "FROM messages "
         )
         #print(cursor.fetchall())
