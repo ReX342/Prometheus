@@ -125,4 +125,10 @@ def activate_email(activation_code):
 def content():
     all_content = get_content()
     return render_template('content.html.j2', all_content=all_content)
+
+@app.route('/attachment')
+@login_required
+def attachment():
+    all_attachments = get_attachment()
+    return render_template('attachment.html.j2', all_attachments=all_attachments)
     

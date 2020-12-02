@@ -1,0 +1,14 @@
+{% extends "base.html.j2" %}
+
+{% block content %}
+
+<b>Reflect message_content from /discordbot/trashfire.db</b>
+{% for attachment in all_attachments %}
+<br>
+{{ attachment[0] }}
+{{ attachment[1] }}
+{{ attachment[2] }}
+{{ attachment[3] }}
+{% endfor %}
+
+{% endblock %}

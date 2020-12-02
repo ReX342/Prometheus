@@ -148,3 +148,12 @@ def get_content():
         #messages_list = []
         return cursor.fetchall()
         #cursor.close()
+
+def get_attachment():
+    with sqlite3.connect('discordbot/trashfire.db') as conn:
+        cursor = conn.execute("SELECT attachment_url, attachment_filename, message_author, Timestamp, message_content FROM attachments, messages WHERE message_id = attachment_message_id;"
+        )
+        #print(cursor.fetchall())
+        #messages_list = []
+        return cursor.fetchall()
+        #cursor.close()
