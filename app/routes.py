@@ -119,4 +119,10 @@ def activate_email(activation_code):
     
     flash("Could not activate user")
     return redirect(url_for("homepage"))
+
+@app.route('/content')
+@login_required
+def content():
+    all_content = get_content()
+    return render_template('content.html.j2', all_content=all_content)
     

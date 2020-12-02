@@ -17,5 +17,17 @@ For more information and screenshots on where to find this in your GUI, consult 
 
 Prometheus only checks the channel named #stream-of-consciousness. Adapt as you see fit (or make a namesake channel)
 
+We'll have to configure access to our Discord developper TOKEN.
+    https://discord.com/developers/applications 
+(You'll have made a TOKEN following the realpython URL above)
+(Bot -> click 'copy' beneath TOKEN)
+Put this TOKEN in your .env file:
+    TOKEN=youractualtoken
+Be sure you don't use spaces or airquotes.
+
 Now we have to keep this running so it can add content to our database:
     python .\Prometheus.py
+
+You'll notice a database (.db) has been created upon running Prometheus.
+
+Now follow the readme.md of the website that'll be hosting your content.

@@ -2,15 +2,19 @@
 # Flask project to create the most basic login possible
 
 ### If you are only interested in running the source code
-
-```bash
+(for windows: Visual Studio Code powershell terminal)
+```powershell
 git clone https://github.com/sir-ragna/flaskusers
 cd flaskusers
 python -m venv venv
-source venv/bin/activate
+.\venv\Scripts\activate.ps1
 pip install -r requirements.txt
 flask run
 ```
+If it fails, it'll tell you to run the following line, then just continue as you were
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    flask run
 
 Define a `.flaskenv` or `.env` file with the following options.
 

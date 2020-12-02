@@ -137,3 +137,14 @@ with sqlite3.connect(DATABASE) as conn:
     conn.commit()
     print("Executed DB schema script")
     cursor.close()
+
+def get_content():
+    with sqlite3.connect('discordbot/trashfire.db') as conn:
+        cursor = conn.execute("SELECT "
+            "message_content "
+            "FROM messages "
+        )
+        #print(cursor.fetchall())
+        #messages_list = []
+        return cursor.fetchall()
+        #cursor.close()

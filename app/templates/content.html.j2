@@ -1,0 +1,11 @@
+{% extends "base.html.j2" %}
+
+{% block content %}
+
+<b>Reflect message_content from /discordbot/trashfire.db</b>
+{% for content in all_content %}
+<br>
+{{ content[0] }}
+{% endfor %}
+
+{% endblock %}

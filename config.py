@@ -1,7 +1,7 @@
 import os
 
 class Config(object):
-    SECRET_KEY = os.environ.get('SECRET_KEY') 
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'defaultgarbagevalueforsecretkey' 
     DATABASE = os.environ.get('DATABASE') or "database.db"
     PASSWORD = os.environ.get('PASSWORD')
 
