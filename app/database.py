@@ -151,9 +151,22 @@ def get_content():
 
 def get_attachment():
     with sqlite3.connect('discordbot/trashfire.db') as conn:
-        cursor = conn.execute("SELECT attachment_url, attachment_filename, message_author, Timestamp, message_content FROM attachments, messages WHERE message_id = attachment_message_id;"
+        cursor = conn.execute("""SELECT attachment_url, 
+                              attachment_filename, 
+                              message_author, 
+                              Timestamp, 
+                              message_content 
+                              FROM attachments, messages 
+                              WHERE message_id = attachment_message_id 
+                              ORDER by Timestamp desc LIMIT 50,50;"""
         )
         #print(cursor.fetchall())
         #messages_list = []
         return cursor.fetchall()
         #cursor.close()
+        
+        # anonymize author
+        #any_author = cursor.fetchall()
+        #anony_author = message_author.split_string[0]
+        
+# TODO: 3 tiered voting sytem: Delete, Ignore, Keep

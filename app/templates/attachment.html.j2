@@ -5,10 +5,22 @@
 <b>Reflect message_content from /discordbot/trashfire.db</b>
 {% for attachment in all_attachments %}
 <br>
-{{ attachment[0] }}
-{{ attachment[1] }}
-{{ attachment[2] }}
-{{ attachment[3] }}
+<div class="post_header">
+<span class="postername">{{ attachment[2].split('#')[0] }}</span>
+Timestamp: {{ attachment[3] }}
+ID tag: {{ attachment[1] }}
+<br>
+{% if '.png' in attachment[0] %}
+<img style="max-width:100%;" title="{{ attachment[1] }}" alt="{{ attachment[1] }}" src="{{ attachment[0] }}"></img>
+{% else %}
+<a href="{{ attachment[0] }}">{{ attachment[1] }}<a>
+{% endif %}
+<br>
+{% if attachment[4] %}
+<h3> Description: {{ attachment[4] }} </h3>
+{% endif %}
+</div>
 {% endfor %}
 
 {% endblock %}
+
