@@ -150,6 +150,7 @@ def pagination(page):
         nextpage=nextpage, previouspage=previouspage)
     
 @app.route('/random')
+@login_required
 def random():
     random_posts = get_random()     
     return render_template('random.html.j2', random_posts=random_posts)

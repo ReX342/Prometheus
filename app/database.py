@@ -165,8 +165,6 @@ def get_attachment():
         return cursor.fetchall()
         #cursor.close()
         
-# TODO: 3 tiered voting sytem: Delete, Ignore, Keep
-# Class in database? I suppose this is also region database.
 class Post():
     def __init__(self, attachment_id, attachment_filename, attachment_url, 
         attachment_message_id, message_content, message_author, 
@@ -223,3 +221,4 @@ def get_random(number_posts=5):
             post = Post(*row)
             posts.append(post)
         return posts
+# TODO: 4 tiered voting sytem: Delete, Ignore, Keep, Sublime

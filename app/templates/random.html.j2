@@ -17,7 +17,7 @@
         <span class="message">{{ post.content }}</span>
         <br>
         {% if post.type == 'img' %}
-            <img onclick="toggle_size(this)" src="{{ post.url }}">
+            <img class="half" onclick="toggle_size(this)" src="{{ post.url }}">
         {% else %}
             <a href="{{ post.url }}">{{ post.filename }}</a>
         {% endif %}
