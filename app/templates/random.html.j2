@@ -1,0 +1,44 @@
+{% extends "base.html.j2" %}
+
+{% block head %}
+<style>
+    .nickname { text-decoration: underline; }
+    .timestamp { color: #666; }
+    .message { font-size: 20px; }
+    .navigation { text-align: center; font-size: 25px; }
+</style>
+{% endblock head %}
+
+{% block content %}
+
+<div class="container">
+<div class="row navigation">
+    <div class="col">
+            <a href="{{ url_for('homepage') }}">home</a>
+    </div>
+</div>
+{% for post in random_posts %}
+    <div class="row">
+        <div class="col">
+        <span class="nickname">{{ post.nickname }}</span>
+        <span class="timestamp">{{ post.timestamp }}</span>
+        <br>
+        <span class="message">{{ post.content }}</span>
+        <br>
+        {% if post.type == 'img' %}
+            <img src="{{ post.url }}">
+        {% else %}
+            <a href="{{ post.url }}">{{ post.filename }}</a>
+        {% endif %}
+        </div>
+    </div>
+    <hr>
+{% endfor %}
+    <div class="row navigation">
+        <div class="col">
+                <a href="{{ url_for('random') }}">MOAR Random</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

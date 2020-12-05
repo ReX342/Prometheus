@@ -204,3 +204,22 @@ def get_posts_offset_based(offset=0, amount=5):
             post = Post(*row)
             posts.append(post)
         return posts
+    
+def get_random():
+    with sqlite3.connect(TRASHFIRE) as conn:
+        cursor = conn.execute("""
+            SELECT attachment_id, attachment_filename, attachment_url, 
+                attachment_message_id, message_content, message_author, 
+                message_channel, Timestamp
+            FROM attachments
+            JOIN messages ON attachment_message_id = message_id
+            WHERE attachment_id
+            IN (SELECT attachment_id FROM attachments ORDER BY RANDOM() LIMIT 5)
+            ORDER BY datetime(Timestamp) DESC;
+        """)
+        rows = cursor.fetchall()
+        posts = []
+        for row in rows:
+            post = Post(*row)
+            posts.append(post)
+        return posts

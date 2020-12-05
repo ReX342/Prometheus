@@ -136,6 +136,7 @@ def attachment():
 
 # Secretkey needed for discordbot?
 @app.route('/pages/<int:page>')
+@login_required
 def pagination(page):
     if page == 0:
         app.logger.error("page is 0 and it shouldn't be!")
@@ -147,3 +148,8 @@ def pagination(page):
     previouspage = page - 1
     return render_template('pagination.html.j2', posts=posts, 
         nextpage=nextpage, previouspage=previouspage)
+    
+@app.route('/random')
+def random():
+    random_posts = get_random()     
+    return render_template('random.html.j2', random_posts=random_posts)
