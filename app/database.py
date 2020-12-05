@@ -165,8 +165,42 @@ def get_attachment():
         return cursor.fetchall()
         #cursor.close()
         
-        # anonymize author
-        #any_author = cursor.fetchall()
-        #anony_author = message_author.split_string[0]
-        
 # TODO: 3 tiered voting sytem: Delete, Ignore, Keep
+# Class in database? I suppose this is also region database.
+class Post():
+    def __init__(self, attachment_id, attachment_filename, attachment_url, 
+        attachment_message_id, message_content, message_author, 
+        message_channel, timestamp):
+        self.attachment_id = attachment_id
+        self.message_id = attachment_message_id
+        self.filename = attachment_filename
+        self.url = attachment_url
+        if attachment_url.endswith('.png'):
+            self.type = 'img'
+        else:
+            self.type = 'other'
+        self.content = message_content
+        self.author = message_author
+        self.nickname = message_author.split('#')[0]
+        self.channel = message_channel
+        self.timestamp = timestamp
+
+#region database stuff
+TRASHFIRE = app.config['TRASHFIRE']
+def get_posts_offset_based(offset=0, amount=5):
+    with sqlite3.connect(TRASHFIRE) as conn:
+        cursor = conn.execute("""
+            SELECT attachment_id, attachment_filename, attachment_url, 
+                attachment_message_id, message_content, message_author, 
+                message_channel, Timestamp
+            FROM attachments
+            JOIN messages ON attachment_message_id = message_id
+            ORDER BY datetime(Timestamp) DESC
+            LIMIT ?,?;
+        """, (offset, amount))
+        rows = cursor.fetchall()
+        posts = []
+        for row in rows:
+            post = Post(*row)
+            posts.append(post)
+        return posts

@@ -131,4 +131,19 @@ def content():
 def attachment():
     all_attachments = get_attachment()
     return render_template('attachment.html.j2', all_attachments=all_attachments)
-    
+
+# from https://github.com/sir-ragna/pagination/ opting not to use unethical infinite scroll
+
+# Secretkey needed for discordbot?
+@app.route('/pages/<int:page>')
+def pagination(page):
+    if page == 0:
+        app.logger.error("page is 0 and it shouldn't be!")
+        page = 1
+    amount = 5
+    offset = (page - 1) * amount
+    posts = get_posts_offset_based(offset=offset, amount=amount)
+    nextpage = page + 1
+    previouspage = page - 1
+    return render_template('pagination.html.j2', posts=posts, 
+        nextpage=nextpage, previouspage=previouspage)

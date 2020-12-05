@@ -10,3 +10,5 @@ class Config(object):
     MAIL_USE_SSL = os.environ.get('MAIL_USE_SSL')
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    
+    TRASHFIRE = os.environ.get('TRASHFIRE') or "discordbot/trashfire.db"
