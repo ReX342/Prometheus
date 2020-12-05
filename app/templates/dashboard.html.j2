@@ -9,25 +9,15 @@
     </div>
 </div>
 {% for post in random_posts %}
-    <div class="row">
-        <div class="col">
-        <span class="nickname">{{ post.nickname }}</span>
-        <span class="timestamp">{{ post.timestamp }}</span>
-        <br>
-        <span class="message">{{ post.content }}</span>
-        <br>
         {% if post.type == 'img' %}
-            <img onclick="toggle_size(this)" src="{{ post.url }}">
+            <img title=" <{{ post.nickname }}> {{ post.content }}" style="width: 100px" onclick="resize(this)" src="{{ post.url }}">
         {% else %}
             <a href="{{ post.url }}">{{ post.filename }}</a>
         {% endif %}
-        </div>
-    </div>
-    <hr>
 {% endfor %}
     <div class="row navigation">
         <div class="col">
-                <a href="{{ url_for('random') }}">MOAR Random</a>
+                <a href="{{ url_for('dashboard') }}">MOAR dashboard</a>
         </div>
     </div>
 </div>

@@ -153,3 +153,9 @@ def pagination(page):
 def random():
     random_posts = get_random()     
     return render_template('random.html.j2', random_posts=random_posts)
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    random_posts = get_random(number_posts=100)     
+    return render_template('dashboard.html.j2', random_posts=random_posts)

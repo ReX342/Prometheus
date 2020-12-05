@@ -9,6 +9,14 @@
 
     <title>Trashfire feed</title>
     {% block head %}
+    <style>
+        .nickname { text-decoration: underline; }
+        .timestamp { color: #666; }
+        .message { font-size: 20px; }
+        .navigation { text-align: center; font-size: 25px; }
+        {# img { width: 50%; }
+        .smallimage { width: 100px } #}
+    </style>   
     {% endblock head %}
 </head>
 <body>
@@ -21,7 +29,25 @@
 {% block content %}
 {% endblock content %}
 
+<script>
 
+function toggle_size(target) {
+    if (target.style.width == "100%") {
+        target.style.width = "50%";
+    }
+    else {
+        target.style.width = "100%";
+    }
+}
+function resize(target) {
+    if (target.style.width == "100px") {
+        target.style.width = "";
+    }
+    else {
+        target.style.width = "100px";
+    }
+}
+</script>
 <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) 

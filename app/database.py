@@ -205,7 +205,7 @@ def get_posts_offset_based(offset=0, amount=5):
             posts.append(post)
         return posts
     
-def get_random():
+def get_random(number_posts=5):
     with sqlite3.connect(TRASHFIRE) as conn:
         cursor = conn.execute("""
             SELECT attachment_id, attachment_filename, attachment_url, 
@@ -214,9 +214,9 @@ def get_random():
             FROM attachments
             JOIN messages ON attachment_message_id = message_id
             WHERE attachment_id
-            IN (SELECT attachment_id FROM attachments ORDER BY RANDOM() LIMIT 5)
+            IN (SELECT attachment_id FROM attachments ORDER BY RANDOM() LIMIT ?)
             ORDER BY datetime(Timestamp) DESC;
-        """)
+        """, (number_posts,))
         rows = cursor.fetchall()
         posts = []
         for row in rows:
