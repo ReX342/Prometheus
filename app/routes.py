@@ -1,7 +1,7 @@
 from app import app
 from app import mail
 from app.database import *
-from flask import render_template, request, flash, redirect, url_for, session
+from flask import render_template, request, flash, redirect, url_for, session, jsonify
 from functools import wraps
 from flask_mail import Message
 import smtplib
@@ -124,6 +124,12 @@ def activate_email(activation_code):
 @login_required
 def content():
     all_content = get_content()
+    #to do: Filter https and split into href and string
+    #print(all_content);
+    #for "https:/" in all_content[0]:
+    #    all_content[0].split("https:")[1].split(" ")[0]     
+    #if "https:/" in all_content:
+        
     return render_template('content.html.j2', all_content=all_content)
 
 @app.route('/attachment')
@@ -160,3 +166,18 @@ def random():
 def dashboard():
     random_posts = get_random(number_posts=100)     
     return render_template('dashboard.html.j2', random_posts=random_posts)
+   
+@app.route('/inferno')
+@login_required
+def inferno():
+    timestamp = request.args.get('cursor')
+    if timestamp == None:
+        timestamp = datetime.utcnow().isoformat()
+    posts, last_post_timestamp = get_posts_cursor_based(timestamp)
+
+    # Handle request from javascript
+    if request.content_type == 'application/json':
+        posts = [post.toDict() for post in posts]
+        return jsonify(posts), 200
+    
+    return render_template('inferno.html.j2', posts=posts, cursor=last_post_timestamp)

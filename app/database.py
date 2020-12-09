@@ -183,6 +183,17 @@ class Post():
         self.channel = message_channel
         self.timestamp = timestamp
 
+    def toDict(self):
+            """Create a dict of the Post object so it can be converted to JSON"""
+            return {
+                "nickname": self.nickname,
+                "timestamp": self.timestamp,
+                "content": self.content,
+                "type": self.type,
+                "url": self.url,
+                "filename": self.filename
+            }
+
 #region database stuff
 TRASHFIRE = app.config['TRASHFIRE']
 def get_posts_offset_based(offset=0, amount=5):
@@ -221,4 +232,31 @@ def get_random(number_posts=5):
             post = Post(*row)
             posts.append(post)
         return posts
-# TODO: 4 tiered voting sytem: Delete, Ignore, Keep, Sublime
+# 5 Star rating: title= DoublePlusUnGood, Ungood, Good, PlusGood, DoublePlusGood
+# https://mdbootstrap.com/plugins/jquery/rating/ and pipe to database to save rating
+# Make sure the page doesn't refresh on click/voting
+
+# Have a messages.send discordbot send oldest message up to and including ragna's meme
+
+def get_posts_cursor_based(cursor, amount=5):
+    with sqlite3.connect(app.config['TRASHFIRE']) as conn:
+        cursor = conn.execute("""
+            SELECT attachment_id, attachment_filename, attachment_url, 
+                attachment_message_id, message_content, message_author, 
+                message_channel, Timestamp
+            FROM attachments
+            JOIN messages ON attachment_message_id = message_id
+            WHERE datetime(?) > datetime(Timestamp)
+            ORDER BY datetime(Timestamp) DESC
+            LIMIT ?;
+        """, (cursor, amount))
+        rows = cursor.fetchall()
+        posts = []
+        timestamp_last_post = cursor # init with cursor
+        for row in rows:
+            post = Post(*row)
+            posts.append(post)
+            timestamp_last_post = post.timestamp
+        
+        return posts, timestamp_last_post
+

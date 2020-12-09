@@ -4,8 +4,17 @@
 
 <b>Reflect message_content from /discordbot/trashfire.db</b>
 {% for content in all_content %}
-<br>
+
+{% if 'https:/' in content[0] or 'http:/' in content[0] %}
+{% if ' https:/' in content[0] %}
+print <a href="{{ content[0].split("https:")[1].split(" ")[0]  }}"> {{ content[0] }}</a>
+{% endif %}
+<a href="{{ content[0] }}"> {{ content[0] }}</a>
+{% else %}
 {{ content[0] }}
+{% endif %}
+
+<br>
 {{ content[1] }}
 {% endfor %}
 
