@@ -5,6 +5,7 @@ from flask import render_template, request, flash, redirect, url_for, session, j
 from functools import wraps
 from flask_mail import Message
 import smtplib
+import re
 
 def login_required(f):
     @wraps(f)
@@ -124,13 +125,18 @@ def activate_email(activation_code):
 @login_required
 def content():
     all_content = get_content()
-    #to do: Filter https and split into href and string
-    #print(all_content);
-    #for "https:/" in all_content[0]:
-    #    all_content[0].split("https:")[1].split(" ")[0]     
-    #if "https:/" in all_content:
-        
     return render_template('content.html.j2', all_content=all_content)
+
+@app.route('/tweets')
+@login_required
+def tweets():
+    all_content = get_content()
+    tweet_ids = []
+    for message in all_content:
+        message = message[0]
+        matches = re.findall("https?://twitter.com/[^\s]*/(\d+)", message)
+        tweet_ids += matches
+    return render_template('tweet.html.j2', tweet_ids=tweet_ids)
 
 @app.route('/attachment')
 @login_required

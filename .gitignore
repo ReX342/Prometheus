@@ -15,3 +15,5 @@ dist/
 build/
 *.egg-info/
 .flaskenv
+
+discordbot/trashfire.db
