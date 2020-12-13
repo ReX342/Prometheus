@@ -136,7 +136,7 @@ def tweets():
         message = message[0]
         matches = re.findall("https?://twitter.com/[^\s]*/(\d+)", message)
         tweet_ids += matches
-    return render_template('tweet.html.j2', tweet_ids=tweet_ids)
+    return render_template('tweets.html.j2', tweet_ids=tweet_ids)
 
 @app.route('/attachment')
 @login_required
@@ -187,3 +187,16 @@ def inferno():
         return jsonify(posts), 200
     
     return render_template('inferno.html.j2', posts=posts, cursor=last_post_timestamp)
+
+@app.route('/random_tweets')
+@login_required
+def random_tweets():
+    # all_random_tweets = get_random_tweets
+    random_posts = get_random_tweet()     
+    # all_content = get_content()
+    tweet_ids = []
+    for message in random_posts:
+        message = message[0]
+        matches = re.findall("https?://twitter.com/[^\s]*/(\d+)", message)
+        tweet_ids += matches
+    return render_template('random_tweets.html.j2', tweet_ids=tweet_ids)

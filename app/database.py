@@ -260,3 +260,12 @@ def get_posts_cursor_based(cursor, amount=5):
         
         return posts, timestamp_last_post
 
+def get_random_tweet():
+    with sqlite3.connect(TRASHFIRE) as conn:
+        cursor = conn.execute("""
+            SELECT message_content, Timestamp
+            FROM messages 
+            ORDER BY RANDOM();
+        """, 
+        )
+        return cursor.fetchall()

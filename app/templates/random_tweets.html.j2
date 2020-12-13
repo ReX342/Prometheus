@@ -1,0 +1,70 @@
+{% extends "base.html.j2" %}
+
+{% block content %}
+
+<div class="container">
+<div class="row navigation">
+    <div class="col">
+            <a href="{{ url_for('homepage') }}">home</a>
+    </div>
+</div>
+{% for post in random_posts %}
+    <div class="row">
+        <div class="col">
+        <span class="nickname">{{ post.nickname }}</span>
+        <span class="timestamp">{{ post.timestamp }}</span>
+        <br>
+        <span class="message">{{ post.content }}</span>
+        <br>
+        {% if post.type == 'img' %}
+            <img class="half" onclick="toggle_size(this)" src="{{ post.url }}">
+        {% else %}
+            <a href="{{ post.url }}">{{ post.filename }}</a>
+        {% endif %}
+        </div>
+    </div>
+    <hr>
+{% endfor %}
+    <div class="row navigation">
+        <div class="col">
+                <a href="{{ url_for('random') }}">MOAR Random Tweets!</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    #tweet {
+      width: 400px !important;
+    }
+    #tweet iframe {
+      border: none !important;
+      box-shadow: none !important;
+    }
+   </style>
+
+{% for tweet_id in tweet_ids %}
+  <div class="tweet" tweetID="{{ tweet_id }}"></div>
+{% endfor %}
+  <script sync src="https://platform.twitter.com/widgets.js"></script>
+  <script>
+    window.onload = (function(){
+      var tweets = document.getElementsByClassName("tweet");
+      for (var i = 0; i < tweets.length; i++ ) { 
+        var tweet = tweets[i] 
+        var id = tweet.getAttribute("tweetID");
+        twttr.widgets.createTweet(
+          id, tweet,
+          {
+            conversation : 'none',
+            cards        : 'hidden',
+            linkColor    : '#cc0000',
+            theme        : 'light'
+          })
+        .then (function (el) {
+          el.contentDocument.querySelector(".footer").style.display = "none";
+        });
+      }
+    }); 
+  </script>
+
+{% endblock content %}
