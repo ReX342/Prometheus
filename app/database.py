@@ -129,6 +129,13 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"user_verified_email"	INTEGER DEFAULT 0,
 	PRIMARY KEY("user_id" AUTOINCREMENT)
 );
+CREATE TABLE IF NOT EXISTS "ratings" (
+	"ratings_id"	INTEGER,
+	"ratings_usr_id"	INTEGER,
+	"ratings_attachment_id"	INTEGER,
+	"ratings_rating"	INTEGER,
+	PRIMARY KEY("ratings_id" AUTOINCREMENT)
+);
 COMMIT;
 """
 with sqlite3.connect(DATABASE) as conn:
@@ -232,11 +239,6 @@ def get_random(number_posts=5):
             post = Post(*row)
             posts.append(post)
         return posts
-# 5 Star rating: title= DoublePlusUnGood, Ungood, Good, PlusGood, DoublePlusGood
-# https://mdbootstrap.com/plugins/jquery/rating/ and pipe to database to save rating
-# Make sure the page doesn't refresh on click/voting
-
-# Have a messages.send discordbot send oldest message up to and including ragna's meme
 
 def get_posts_cursor_based(cursor, amount=5):
     with sqlite3.connect(app.config['TRASHFIRE']) as conn:
@@ -269,3 +271,8 @@ def get_random_tweet():
         """, 
         )
         return cursor.fetchall()
+
+# https://mdbootstrap.com/plugins/jquery/rating/ and pipe to database to save rating
+# Make sure the page doesn't refresh on click/voting
+
+# Have a messages.send discordbot send oldest message up to and including ragna's meme

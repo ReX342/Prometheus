@@ -200,3 +200,17 @@ def random_tweets():
         matches = re.findall("https?://twitter.com/[^\s]*/(\d+)", message)
         tweet_ids += matches
     return render_template('random_tweets.html.j2', tweet_ids=tweet_ids)
+
+@app.route('/attach_ratings')
+@login_required
+def attach_ratings():
+    all_attachments = get_attachment()
+    usr_id = session['user_id']
+    return render_template('attach_ratings.html.j2', usr_id = usr_id, all_attachments=all_attachments)
+
+@app.route('/vote', methods=['POST', 'GET'])
+@login_required
+def vote():
+    rated = request.args.get('value')
+    print(rated)
+    return "", 200
