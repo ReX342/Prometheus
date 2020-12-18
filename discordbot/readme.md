@@ -31,3 +31,7 @@ Now we have to keep this running so it can add content to our database:
 You'll notice a database (.db) has been created upon running Prometheus.
 
 Now follow the readme.md of the website that'll be hosting your content.
+
+Code of conduct:
+    Do one thing.
+    More will follow at an appropriate time.
