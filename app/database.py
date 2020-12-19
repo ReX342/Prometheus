@@ -162,7 +162,8 @@ def get_attachment():
                               attachment_filename, 
                               message_author, 
                               Timestamp, 
-                              message_content 
+                              message_content,
+                                attachment_id
                               FROM attachments, messages 
                               WHERE message_id = attachment_message_id 
                               ORDER by Timestamp desc LIMIT 50,50;"""
@@ -271,7 +272,18 @@ def get_random_tweet():
         """, 
         )
         return cursor.fetchall()
-
+    
+def insert_vote(usr_id, attachment_id, rating):
+    """Save a vote into the database"""
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.execute("""
+            INSERT INTO ratings (ratings_usr_id, ratings_attachment_id, ratings_rating)
+            VALUES (?,?,?)
+            """, (usr_id, attachment_id, rating)
+            )
+        ratings_id = cursor.lastrowid
+        conn.commit()
+        return ratings_id
 # https://mdbootstrap.com/plugins/jquery/rating/ and pipe to database to save rating
 # Make sure the page doesn't refresh on click/voting
 

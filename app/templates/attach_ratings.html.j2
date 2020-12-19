@@ -2,6 +2,16 @@
 
 {% block content %}
 
+<script>
+function vote(rating, usr_id, attachment_id){
+  console.log("voting")
+fetch('/vote?' + new URLSearchParams({
+    value: rating,
+    usr_id: usr_id,
+    attachment_id: attachment_id
+    }))}
+</script>
+
 <b>Attach Ratings</b>
 
 {% for attachment in all_attachments %}
@@ -12,26 +22,18 @@ Timestamp: {{ attachment[3] }}
 ID tag: {{ attachment[1] }}
 
   <div class="rate">
-    <input type="radio" id="star5" name="rate" value="5" onclick='vote(5, "{{ usr_id }}" , "{{ attachment[1] }}" )'/>
-    <label for="star5" title="DoublePlusGood">5 stars</label>
-    <input type="radio" id="star4" name="rate" value="4" onclick='vote(4, "{{ usr_id }}" , "{{ attachment[1] }}" )'/>
-    <label for="star4" title="PlusGood">4 stars</label>
-    <input type="radio" id="star3" name="rate" value="3" onclick='vote(3, "{{ usr_id }}" , "{{ attachment[1] }}" ) '/>
-    <label for="star3" title="Good">3 stars</label>
-    <input type="radio" id="star2" name="rate" value="2" onclick='vote(2, "{{ usr_id }}" , "{{ attachment[1] }}" )'/>
-    <label for="star2" title="Ungood">2 stars</label>
-    <input type="radio" id="star1" name="rate" value="1" onclick='vote(1, "{{ usr_id }}" , "{{ attachment[1] }}" )' />
-    <label for="star1" title="DoublePlusUnGood">1 star</label>
+    <input type="radio" id="star5_{{ attachment[5] }}" name="rate" value="5" onclick='vote(5, {{ usr_id }} , {{ attachment[5] }} )'/>
+    <label for="star5_{{ attachment[5] }}" title="DoublePlusGood">5 stars</label>
+    <input type="radio" id="star4_{{ attachment[5] }}" name="rate" value="4" onclick='vote(4, {{ usr_id }} , {{ attachment[5] }} )'/>
+    <label for="star4_{{ attachment[5] }}" title="PlusGood">4 stars</label>
+    <input type="radio" id="star3_{{ attachment[5] }}" name="rate" value="3" onclick='vote(3, {{ usr_id }} , {{ attachment[5] }} )'/>
+    <label for="star3_{{ attachment[5] }}" title="Good">3 stars</label>
+    <input type="radio" id="star2_{{ attachment[5] }}" name="rate" value="2" onclick='vote(2, {{ usr_id }} , {{ attachment[5] }} )'/>
+    <label for="star2_{{ attachment[5] }}" title="Ungood">2 stars</label>
+    <input type="radio" id="star1_{{ attachment[5] }}" name="rate" value="1" onclick='vote(1, {{ usr_id }} , {{ attachment[5] }} )' />
+    <label for="star1_{{ attachment[5] }}" title="DoublePlusUnGood">1 star</label>
   </div>
 
-<script>
-function vote(rating, usr_id, content_id){
-fetch('/vote?' + new URLSearchParams({
-    value: rating,
-    usr_id: usr_id,
-    content_id: content_id
-    }))}
-</script>
 
 
 <br>

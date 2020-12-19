@@ -213,4 +213,10 @@ def attach_ratings():
 def vote():
     rated = request.args.get('value')
     print(rated)
-    return "", 200
+    attachment_id = request.args.get('attachment_id')
+    try:
+        insert_vote(session['user_id'], attachment_id, rated)
+        return "", 200
+    except Exception as ex:
+        app.logger.error("{}".format(ex), exc_info=True)
+         
