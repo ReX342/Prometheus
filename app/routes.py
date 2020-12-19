@@ -206,7 +206,8 @@ def random_tweets():
 def attach_ratings():
     all_attachments = get_attachment()
     usr_id = session['user_id']
-    return render_template('attach_ratings.html.j2', usr_id = usr_id, all_attachments=all_attachments)
+    random_posts = get_random()     
+    return render_template('attach_ratings.html.j2', usr_id = usr_id, all_attachments=all_attachments, random_posts=random_posts)
 
 @app.route('/vote', methods=['POST', 'GET'])
 @login_required
