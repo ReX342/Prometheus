@@ -14,12 +14,6 @@ fetch('/vote?' + new URLSearchParams({
 
 <b>Attach Ratings</b>
 
-<b> TO DO: Try without this for loop? You have the same 5 images running in a loop right now</b>
-{% for attachment in all_attachments %}
-<b> TO DO: Get Exception "Already voted" from github
-
-<b> Random Ratings</b>
-
 <div class="container">
 <div class="row navigation">
     <div class="col">
@@ -44,11 +38,11 @@ fetch('/vote?' + new URLSearchParams({
     <hr>
 
 <br>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(5, {{ usr_id }} , {{ attachment[5] }} )'>DoublePlusGood</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(4, {{ usr_id }} , {{ attachment[5] }} )'>PlusGood</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(3, {{ usr_id }} , {{ attachment[5] }} )'>Good</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(2, {{ usr_id }} , {{ attachment[5] }} )'>Ungood</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(1, {{ usr_id }} , {{ attachment[5] }} )'>DoublePlusUnGood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(5, {{ usr_id }} , {{ post.attachment_id }} )'>DoublePlusGood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(4, {{ usr_id }} , {{ post.attachment_id }} )'>PlusGood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(3, {{ usr_id }} , {{ post.attachment_id }} )'>Good</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(2, {{ usr_id }} , {{ post.attachment_id }} )'>Ungood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(1, {{ usr_id }} , {{ post.attachment_id }} )'>DoublePlusUnGood</button>
 <br>
 
 {% endfor %}
@@ -64,30 +58,5 @@ fetch('/vote?' + new URLSearchParams({
 
 
 
-<div class="post_header">
-<span class="nickname">{{ attachment[2].split('#')[0] }}</span>
-Timestamp: {{ attachment[3] }}
-ID tag: {{ attachment[1] }}
-
-<!-- Code goes BRRR-->
-<br>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(5, {{ usr_id }} , {{ attachment[5] }} )'>DoublePlusGood</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(4, {{ usr_id }} , {{ attachment[5] }} )'>PlusGood</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(3, {{ usr_id }} , {{ attachment[5] }} )'>Good</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(2, {{ usr_id }} , {{ attachment[5] }} )'>Ungood</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(1, {{ usr_id }} , {{ attachment[5] }} )'>DoublePlusUnGood</button>
-<br>
-
-{% if '.png' in attachment[0] %}
-<img style="max-width:100%;" title="{{ attachment[1] }}" alt="{{ attachment[1] }}" src="{{ attachment[0] }}"></img>
-{% else %}
-<a href="{{ attachment[0] }}">{{ attachment[1] }}<a>
-{% endif %}
-<br>
-{% if attachment[4] %}
-<h3> Description: {{ attachment[4] }} </h3>
-{% endif %}
-</div>
-{% endfor %}
 
 {% endblock %}
