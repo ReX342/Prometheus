@@ -17,3 +17,6 @@ build/
 .flaskenv
 
 discordbot/trashfire.db
+
+app/
+cli.py
