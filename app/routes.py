@@ -91,6 +91,7 @@ def profile():
         elif 'verifyme' in request.form:
             act_link = generate_verification_link(user_id)
             message = Message("Activate your account", 
+                # Enter your own username here as sender
                 sender=("ReX", app.config['MAIL_USERNAME']))
             user = get_user(user_id)
             message.recipients = [ user['user_email'] ]
