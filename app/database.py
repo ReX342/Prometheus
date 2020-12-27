@@ -291,6 +291,9 @@ def insert_vote(usr_id, attachment_id, rating):
 # adapt code from flask votes
 def get_top_rated():
     with sqlite3.connect(DATABASE) as conn:
+        # post['attachment_file] is now accessible to template: Name based access to columns
+        # https://stackoverflow.com/questions/44009452/what-is-the-purpose-of-the-row-factory-method-of-an-sqlite3-connection-object
+        conn.row_factory = sqlite3.Row
         cursor = conn.execute("ATTACH 'E:\\pset8outside\\FinalProject\\discordbot\\trashfire.db' as TRASHFIRE;")
         cursor.execute("""
                                 SELECT attachment_id, attachment_filename, attachment_url, attachment_message_id, SUM(
@@ -307,6 +310,26 @@ def get_top_rated():
     #messages_list = [] 
     #return messages_list
     return cursor.fetchall()
+
+# top rated via random code c/p; put top_rated with JOIN below in sql dbase query
+def get_best(number_posts=5):
+    with sqlite3.connect(TRASHFIRE) as conn:
+        cursor = conn.execute("""
+            SELECT attachment_id, attachment_filename, attachment_url, 
+                attachment_message_id, message_content, message_author, 
+                message_channel, Timestamp
+            FROM attachments
+            JOIN messages ON attachment_message_id = message_id
+            WHERE attachment_id
+            IN (SELECT attachment_id FROM attachments ORDER BY DESC() LIMIT ?)
+        """, (number_posts,))
+        rows = cursor.fetchall()
+        posts = []
+        for row in rows:
+            post = Post(*row)
+            posts.append(post)
+        return posts
+
     
 def rework_this():
     def get_top_posts(limit=5):
