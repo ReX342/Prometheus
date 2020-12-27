@@ -225,7 +225,10 @@ def vote():
 #@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 @app.route('/top_rated')
 def top_rated():
-    usr_id = session['user_id']
-    top_posts = get_top_rated()
+    usr_id = -1
+    if "user_id" in session :        
+        usr_id = session['user_id']    
+    top_posts = get_best()
     return render_template('top_rated.html.j2', top_posts = top_posts, usr_id = usr_id)
     return "Post could not be found", 404
+
