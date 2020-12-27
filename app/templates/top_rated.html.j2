@@ -1,0 +1,46 @@
+{% extends 'base.html.j2' %}
+
+{% block content %}
+
+<script>
+function vote(rating, usr_id, attachment_id){
+  console.log("voting")
+fetch('/vote?' + new URLSearchParams({
+    value: rating,
+    usr_id: usr_id,
+    attachment_id: attachment_id
+    }))}
+</script>
+
+{% for post in top_posts %}
+    <div class="row">
+        <div class="col">
+        <span class="nickname">{{ post["message_author"].split('#')[0] }}</span>
+        <span class="timestamp">{{ post["timestamp"] }}</span>
+        <br>
+        <span class="score"> {{ post["score"] }}</span>
+        <span class="message">{{ post["message_content"] }}</span>
+        <br>
+        {% if post["attachment_url"].endswith('.png') %}
+            <img class="half" onclick="toggle_size(this)" src="{{ post["attachment_url"] }}">
+        {% else %}
+            <a href="{{ post["attachment_url"] }}">{{ post["attachment_filename"] }}</a>
+        {% endif %}
+        </div>
+    </div>
+
+{% if usr_id == -1 %}
+    <a href="{{ url_for('login') }}">Login</a> to vote
+{% else %}
+<br>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(5, {{ usr_id }} , {{ post["attachment_id"] }} )'>DoublePlusGood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(4, {{ usr_id }} , {{ post["attachment_id"] }} )'>PlusGood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(3, {{ usr_id }} , {{ post["attachment_id"] }} )'>Good</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(2, {{ usr_id }} , {{ post["attachment_id"] }} )'>Ungood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(1, {{ usr_id }} , {{ post["attachment_id"] }} )'>DoublePlusUnGood</button>
+<br>
+{% endif %}
+    <hr>
+{% endfor %}
+
+{% endblock content %}

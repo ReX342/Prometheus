@@ -18,5 +18,4 @@ build/
 
 discordbot/trashfire.db
 
-app/
-cli.py
+app/cli.py
