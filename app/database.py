@@ -285,39 +285,13 @@ def insert_vote(usr_id, attachment_id, rating):
         conn.commit()
         return ratings_id
 # https://mdbootstrap.com/plugins/jquery/rating/ and pipe to database to save rating
-# Make sure the page doesn't refresh on click/voting
 
-# Have a messages.send discordbot send oldest message up to and including ragna's meme
-# adapt code from flask votes
 def get_top_rated():
     with sqlite3.connect(DATABASE) as conn:
         # post['attachment_file] is now accessible to template: Name based access to columns
         # https://stackoverflow.com/questions/44009452/what-is-the-purpose-of-the-row-factory-method-of-an-sqlite3-connection-object
         conn.row_factory = sqlite3.Row
-        cursor = conn.execute("ATTACH 'E:\\pset8outside\\FinalProject\\discordbot\\trashfire.db' as TRASHFIRE;")
-        cursor.execute("""
-                                SELECT attachment_id, attachment_filename, attachment_url, attachment_message_id, SUM(
-                CASE WHEN ratings_rating IS NULL 
-                    THEN 0 
-                    ELSE ratings_rating
-                END) as 'score', COUNT(ratings_id) as AMOUNT
-                FROM TRASHFIRE.attachments 
-                LEFT join ratings on ratings_attachment_id = attachment_id
-				GROUP by attachment_id
-                ORDER by score desc LIMIT 50;
-                """)
-    #print(cursor.fetchall())
-    #messages_list = [] 
-    #return messages_list
-    return cursor.fetchall()
-
-# top rated via random code c/p; put top_rated with JOIN below in sql dbase query
-def get_best():
-    with sqlite3.connect(DATABASE) as conn:
-        # post['attachment_file] is now accessible to template: Name based access to columns
-        # https://stackoverflow.com/questions/44009452/what-is-the-purpose-of-the-row-factory-method-of-an-sqlite3-connection-object
-        conn.row_factory = sqlite3.Row
-        cursor = conn.execute("ATTACH 'E:\\pset8outside\\FinalProject\\discordbot\\trashfire.db' as TRASHFIRE;")
+        cursor = conn.execute("ATTACH './discordbot/trashfire.db' as TRASHFIRE;")
         cursor.execute("""
             SELECT 
             attachment_id, attachment_filename, attachment_url, 
@@ -335,33 +309,4 @@ def get_best():
                 ORDER by score desc LIMIT 50;
         """)
         return cursor.fetchall()
-    
-        # rows = cursor.fetchall()
-        # posts = []
-        # for row in rows:
-        #     post = Post(*row)
-        #     posts.append(post)
-        # return posts
-
-    
-def rework_this():
-    def get_top_posts(limit=5):
-        """Retrieve the top rated posts. Default limit=5"""
-        with sqlite3.connect(app.config['DATABASE']) as conn:
-            cursor = conn.execute("""
-            SELECT posts.post_id, SUM(
-                CASE WHEN votes.rating IS NULL 
-                    THEN 0 
-                    ELSE votes.rating 
-                END) as 'score'
-            FROM posts
-            LEFT JOIN votes on posts.post_id = votes.post_id
-            GROUP BY posts.post_id
-            ORDER BY score DESC
-            LIMIT ?
-            """, (limit,))
-            posts = []
-            for row in cursor.fetchall():
-                posts.append({'post_id': row[0], 'score': row[1]})
-            return posts
 
