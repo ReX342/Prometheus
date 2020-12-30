@@ -14,7 +14,7 @@
 <i>Not signed in</i>
 {% endif %}
 <ul>
-    <li><a href="{{ url_for('register') }}">register</a></li>
+    <li><a href="{{ url_for('register') }}">register</a> No requirements of ANY kind!</li>
     <li><a href="{{ url_for('login') }}">login</a></li>
     <li><a href="{{ url_for('logout') }}">logout</a></li>
     <li><a href="{{ url_for('admin') }}">admin</a></li>
@@ -24,10 +24,10 @@
     <li><a href="{{ url_for('pagination', page=1) }}">pagination</a></li>
     <li><a href="{{ url_for('random') }}">random</a></li>
     <li><a href="{{ url_for('dashboard') }}">dashboard</a></li>
-    <li><a href="{{ url_for('inferno') }}">inferno</a></li>
+    <li><a href="{{ url_for('inferno') }}">inferno</a> Infinite scroll is unethical</li>
     <li><a href="{{ url_for('tweets') }}">tweets</a></li>
     <li><a href="{{ url_for('random_tweets') }}">random_tweets</a></li>
-    <li><a href="{{ url_for('attach_ratings') }}">attach_ratings</a></li>
-    <li><a href="{{ url_for('top_rated') }}">top_rated</a></li>
+    <li><a href="{{ url_for('attach_ratings') }}">attach_ratings</a> You may vote an infinite amount of times!</li>
+    <li><a href="{{ url_for('top_rated') }}">top_rated</a> No Login required</li>
 </ul>
 {% endblock content %}

@@ -213,7 +213,8 @@ def attach_ratings():
 @login_required
 def vote():
     rated = request.args.get('value')
-    print(rated)
+    if int(rated) not in [-2, -1, 0, 1, 2]:
+        return "Who controls the past, controls the future: who controls the present controls the past.", 406
     attachment_id = request.args.get('attachment_id')
     try:
         insert_vote(session['user_id'], attachment_id, rated)

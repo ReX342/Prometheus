@@ -33,11 +33,11 @@ fetch('/vote?' + new URLSearchParams({
     <a href="{{ url_for('login') }}">Login</a> to vote
 {% else %}
 <br>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(5, {{ usr_id }} , {{ post["attachment_id"] }} )'>DoublePlusGood</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(4, {{ usr_id }} , {{ post["attachment_id"] }} )'>PlusGood</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(3, {{ usr_id }} , {{ post["attachment_id"] }} )'>Good</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(2, {{ usr_id }} , {{ post["attachment_id"] }} )'>Ungood</button>
-  <button type="button" class="btn btn-outline-dark" onclick='vote(1, {{ usr_id }} , {{ post["attachment_id"] }} )'>DoublePlusUnGood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(2, {{ usr_id }} , {{ post["attachment_id"] }} )'>DoublePlusGood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(1, {{ usr_id }} , {{ post["attachment_id"] }} )'>PlusGood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(0, {{ usr_id }} , {{ post["attachment_id"] }} )'>Good</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(-1, {{ usr_id }} , {{ post["attachment_id"] }} )'>Ungood</button>
+  <button type="button" class="btn btn-outline-dark" onclick='vote(-2, {{ usr_id }} , {{ post["attachment_id"] }} )'>DoublePlusUnGood</button>
 <br>
 {% endif %}
     <hr>
