@@ -13,20 +13,30 @@
 {% else %}
 <i>Not signed in</i>
 {% endif %}
+<p> User section:</p>
 <ul>
     <li><a href="{{ url_for('register') }}">register</a> No requirements of ANY kind!</li>
     <li><a href="{{ url_for('login') }}">login</a></li>
     <li><a href="{{ url_for('logout') }}">logout</a></li>
     <li><a href="{{ url_for('admin') }}">admin</a></li>
     <li><a href="{{ url_for('profile') }}">profile</a></li>
+</ul>
+<p> Back end:</p>
+<ul>
     <li><a href="{{ url_for('content') }}">content</a></li>
     <li><a href="{{ url_for('attachment') }}">attachment</a></li>
     <li><a href="{{ url_for('pagination', page=1) }}">pagination</a></li>
     <li><a href="{{ url_for('random') }}">random</a></li>
     <li><a href="{{ url_for('dashboard') }}">dashboard</a></li>
+</ul>
+<p> Proof of concepts:</p>
+<ul>
     <li><a href="{{ url_for('inferno') }}">inferno</a> Infinite scroll is unethical</li>
     <li><a href="{{ url_for('tweets') }}">tweets</a></li>
     <li><a href="{{ url_for('random_tweets') }}">random_tweets</a></li>
+</ul>
+<p> Prometheus's trashire:</p>
+<ul>
     <li><a href="{{ url_for('attach_ratings') }}">attach_ratings</a> You may vote an infinite amount of times!</li>
     <li><a href="{{ url_for('top_rated') }}">top_rated</a> No Login required</li>
 </ul>
